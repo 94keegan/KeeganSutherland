@@ -5,7 +5,7 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">Welcome@(!string.IsNullOrWhiteSpace(Model.City) ? $" to {Model.City}" : string.Empty)</h1>
     <h2>I love you <a href="https://adventurousalia.com" target="_blank">Alia Sutherland</a> ❤</h2>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
