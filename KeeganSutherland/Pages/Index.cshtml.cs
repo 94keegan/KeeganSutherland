@@ -17,13 +17,9 @@ namespace KeeganSutherland.Pages
             _logger = logger;
         }
 
-        //keegansutherland.com/?City=Comstock%20Park
-        [BindProperty(SupportsGet = true)]
-        public string City { get; set; }
-
         public void OnGet()
         {
-
+            if (HttpContext.Request.Query["password"] != "Alia") Response.Redirect("/UnderConstruction");
         }
     }
 }
