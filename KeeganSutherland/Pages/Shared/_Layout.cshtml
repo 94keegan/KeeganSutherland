@@ -3,46 +3,107 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - KeeganSutherland</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <title>@ViewData["Title"] - Keegan Sutherland</title>
+
+    <!-- Favicons -->
+    <link rel="icon" href="~/img/favicon.png" />
+    <link rel="apple-touch-icon" href="~/img/apple-touch-icon.png"  />
+
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" />
+
+    <!-- Vendor CSS Files -->
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/icofont/icofont.min.css" />
+    <link rel="stylesheet" href="~/lib/boxicons/css/boxicons.min.css" />
+    <link rel="stylesheet" href="~/lib/venobox/venobox.css" />
+    <link rel="stylesheet" href="~/lib/owl.carousel/assets/owl.carousel.min.css" />
+    <link rel="stylesheet" href="~/lib/aos/aos.css" />
+
+    <!-- Template Main CSS File -->
+    <link rel="stylesheet" href="~/css/style.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <!-- =======================================================
+    * Template Name: iPortfolio - v1.3.0
+    * Template URL: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">KeeganSutherland</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <!-- ======= Mobile nav toggle button ======= -->
+    <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
+
+    <!-- ======= Header ======= -->
+    <header id="header">
+        <div class="d-flex flex-column">
+
+            <div class="profile">
+                <img src="~/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">
+                <h1 class="text-light"><a asp-page="/Index">Alex Smith</a></h1>
+                <div class="social-links mt-3 text-center">
+                    <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                    <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                    <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                    <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                    <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - KeeganSutherland - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            <nav class="nav-menu">
+                <ul>
+                    <li class="active"><a asp-page="/Index"><i class="bx bx-home"></i> <span>Home</span></a></li>
+                    <li><a href="#about"><i class="bx bx-user"></i> <span>About</span></a></li>
+                    <li><a href="#resume"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
+                    <li><a href="#portfolio"><i class="bx bx-book-content"></i> Portfolio</a></li>
+                    <li><a href="#services"><i class="bx bx-server"></i> Services</a></li>
+                    <li><a href="#contact"><i class="bx bx-envelope"></i> Contact</a></li>
+
+                </ul>
+            </nav><!-- .nav-menu -->
+            <button type="button" class="mobile-nav-toggle d-xl-none"><i class="icofont-navigation-menu"></i></button>
+
         </div>
-    </footer>
+    </header>
+    <!-- End Header -->
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderBody()
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+        <div class="container">
+            <div class="copyright">
+                &copy; Copyright <strong><span>iPortfolio</span></strong>
+            </div>
+            <div class="credits">
+                <!-- All the links in the footer should remain intact. -->
+                <!-- You can delete the links only if you purchased the pro version. -->
+                <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/ -->
+                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            </div>
+        </div>
+    </footer><!-- End  Footer -->
+
+    <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery.easing/jquery.easing.min.js"></script>
+    <script src="~/lib/php-email-form/validate.js"></script>
+    <script src="~/lib/waypoints/jquery.waypoints.min.js"></script>
+    <script src="~/lib/counterup/counterup.min.js"></script>
+    <script src="~/lib/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/lib/venobox/venobox.min.js"></script>
+    <script src="~/lib/owl.carousel/owl.carousel.min.js"></script>
+    <script src="~/lib/typed.js/typed.min.js"></script>
+    <script src="~/lib/aos/aos.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/js/main.js"></script>
+
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
