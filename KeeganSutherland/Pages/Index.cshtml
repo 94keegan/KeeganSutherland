@@ -2,13 +2,22 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home";
+
+    DateTime dateOfBirth = new DateTime(1994, 8, 23);
+    DateTime dateOfDevCasually = new DateTime(2013, 8, 19);
+    DateTime dateOfDevProfessionally = new DateTime(2016, 5, 9);
+
+
+    int age = (int.Parse(DateTime.Now.ToString("yyyyMMdd")) - int.Parse(dateOfBirth.ToString("yyyyMMdd"))) / 10000;
+    int devCasuallyYears = (int.Parse(DateTime.Now.ToString("yyyyMMdd")) - int.Parse(dateOfDevCasually.ToString("yyyyMMdd"))) / 10000;
+    int devProfessionallyYears = (int.Parse(DateTime.Now.ToString("yyyyMMdd")) - int.Parse(dateOfDevProfessionally.ToString("yyyyMMdd"))) / 10000;
 }
 
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
     <div class="hero-container" data-aos="fade-in">
         <h1>Keegan Sutherland</h1>
-        <p>I'm a <span class="typed" data-typed-items=".Net Web Developer, Tech Enthusiast, Runner, Husband"></span></p>
+        <p>I'm a <span class="typed" data-typed-items="Full Stack .Net Web Developer, Tech Enthusiast, Runner, Husband"></span></p>
     </div>
 </section><!-- End Hero -->
 <main id="main">
@@ -17,23 +26,25 @@
         <div class="container">
             <div class="section-title">
                 <h2>About</h2>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+                <p>Hi, I'm Keegan! I've been developing casually for about @devCasuallyYears years and professionally for about @devProfessionallyYears years.
+                I am very motivated, disciplined, and organized when it comes to both my personal life and professional career. In my free time I love to run, hike, bike, swim in Lake Michigan, tinker around with my gadgets, and play video games.
+                I love the outdoors, especially exploring West Michigan and all it has to offer from the towns, to the beaches, to the trails.</p>
             </div>
             <div class="row">
                 <div class="col-lg-4" data-aos="fade-right">
                     <img src="~/img/profile-img.jpg" class="img-fluid" alt="">
                 </div>
                 <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
-                    <h3>.Net Web Developer.</h3>
+                    <h3>Full Stack .Net Web Developer.</h3>
                     <p class="font-italic">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
+                        I love working in the .Net stack and learning all about the newest .Net technologies. I develop with frontend, backend, and database technologies to create a seamless experience for the user.
+                        I utilize AWS to keep hosting costs low and downtime minimal. I've developed websites, web applications, applications, and SOAP/REST APIs.
                     </p>
                     <div class="row">
                         <div class="col-lg-6">
                             <ul>
-                                <li><i class="icofont-rounded-right"></i> <strong>Birthday: </strong>23 Aug 1994</li>
-                                <li><i class="icofont-rounded-right"></i> <strong>Age: </strong>25</li>
+                                <li><i class="icofont-rounded-right"></i> <strong>Birthday: </strong>@dateOfBirth.ToString("MMM dd, yyyy")</li>
+                                <li><i class="icofont-rounded-right"></i> <strong>Age: </strong>@age</li>
                                 <li><i class="icofont-rounded-right"></i> <strong>Website: </strong>keegansutherland.com</li>
                                 <li><i class="icofont-rounded-right"></i> <strong>City: </strong>Grand Rapids, MI</li>
                             </ul>
@@ -47,16 +58,17 @@
                             </ul>
                         </div>
                     </div>
-                    <p>
+                    @*<p>
                         Officiis eligendi itaque labore et dolorum mollitia officiis optio vero. Quisquam sunt adipisci omnis et ut. Nulla accusantium dolor incidunt officia tempore. Et eius omnis.
                         Cupiditate ut dicta maxime officiis quidem quia. Sed et consectetur qui quia repellendus itaque neque. Aliquid amet quidem ut quaerat cupiditate. Ab et eum qui repellendus omnis culpa magni laudantium dolores.
-                    </p>
+                    </p>*@
                 </div>
             </div>
         </div>
-    </section><!-- End About Section -->
+    </section>
+    <!-- End About Section -->
     <!-- ======= Facts Section ======= -->
-    <section id="facts" class="facts">
+    @*<section id="facts" class="facts">
         <div class="container">
             <div class="section-title">
                 <h2>Facts</h2>
@@ -93,13 +105,14 @@
                 </div>
             </div>
         </div>
-    </section><!-- End Facts Section -->
+    </section>*@
+    <!-- End Facts Section -->
     <!-- ======= Skills Section ======= -->
     <section id="skills" class="skills section-bg">
         <div class="container">
             <div class="section-title">
                 <h2>Skills</h2>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+                <p>I have developed in a wide range of .Net programming languages and technologies that allows me to choose the best option for my client's needs.</p>
             </div>
             <div class="row skills-content">
                 <div class="col-lg-6" data-aos="fade-up">
@@ -110,86 +123,76 @@
                         </div>
                     </div>
                     <div class="progress">
-                        <span class="skill">CSS <i class="val">90%</i></span>
+                        <span class="skill">CSS <i class="val">100%</i></span>
                         <div class="progress-bar-wrap">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                     <div class="progress">
-                        <span class="skill">JavaScript <i class="val">75%</i></span>
+                        <span class="skill">JavaScript <i class="val">100%</i></span>
                         <div class="progress-bar-wrap">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                     <div class="progress">
-                        <span class="skill">jQuery <i class="val">90%</i></span>
+                        <span class="skill">jQuery <i class="val">100%</i></span>
                         <div class="progress-bar-wrap">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="progress">
-                        <span class="skill">C# <i class="val">90%</i></span>
+                        <span class="skill">C# <i class="val">100%</i></span>
                         <div class="progress-bar-wrap">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                     <div class="progress">
-                        <span class="skill">.Net <i class="val">90%</i></span>
+                        <span class="skill">VB <i class="val">100%</i></span>
                         <div class="progress-bar-wrap">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                     <div class="progress">
-                        <span class="skill">SQL <i class="val">90%</i></span>
+                        <span class="skill">.Net Framework<i class="val">100%</i></span>
                         <div class="progress-bar-wrap">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <span class="skill">.Net Core<i class="val">100%</i></span>
+                        <div class="progress-bar-wrap">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <span class="skill">SQL <i class="val">100%</i></span>
+                        <div class="progress-bar-wrap">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section><!-- End Skills Section -->
+    </section>
+    <!-- End Skills Section -->
     <!-- ======= Resume Section ======= -->
     <section id="resume" class="resume">
         <div class="container">
             <div class="section-title">
                 <h2>Resume</h2>
-                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+                <p>Self-motivated, enthusiastic, and detail-oriented software engineer with a solid understanding of object-oriented programming and broad-based experience designing, developing, testing, and modifying enterprise-wide end-user, system-level, and data management software.
+                Leveraged the ability to manage multiple projects simultaneously with technical and non-technical attributes, demonstrated basic understanding of software development concepts, principles, and theory and a proven ability to follow and apply basic programming and analytical concepts.
+                Met tight deadlines, collaborated with teams, and comprehension of new concepts quickly and accurately across evolving work environments.</p>
             </div>
             <div class="row">
-                <div class="col-lg-6" data-aos="fade-up">
-                    <h3 class="resume-title">Sumary</h3>
-                    <div class="resume-item pb-0">
-                        <h4>Keegan Sutherland</h4>
-                        <p><em>Innovative and deadline-driven Graphic Designer with 3+ years of experience designing and developing user-centered digital/print marketing material from initial concept to final, polished deliverable.</em></p>
-                        <ul>
-                            <li>Portland par 127,Orlando, FL</li>
-                            <li>(123) 456-7891</li>
-                            <li>alice.barkley@example.com</li>
-                        </ul>
-                    </div>
-                    <h3 class="resume-title">Education</h3>
-                    <div class="resume-item">
-                        <h4>Master of Fine Arts &amp; Graphic Design</h4>
-                        <h5>2015 - 2016</h5>
-                        <p><em>Rochester Institute of Technology, Rochester, NY</em></p>
-                        <p>Qui deserunt veniam. Et sed aliquam labore tempore sed quisquam iusto autem sit. Ea vero voluptatum qui ut dignissimos deleniti nerada porti sand markend</p>
-                    </div>
-                    <div class="resume-item">
-                        <h4>Bachelor of Fine Arts &amp; Graphic Design</h4>
-                        <h5>2010 - 2014</h5>
-                        <p><em>Rochester Institute of Technology, Rochester, NY</em></p>
-                        <p>Quia nobis sequi est occaecati aut. Repudiandae et iusto quae reiciendis et quis Eius vel ratione eius unde vitae rerum voluptates asperiores voluptatem Earum molestiae consequatur neque etlon sader mart dila</p>
-                    </div>
-                </div>
                 <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
                     <h3 class="resume-title">Professional Experience</h3>
                     <div class="resume-item">
-                        <h4>Senior graphic design specialist</h4>
-                        <h5>2019 - Present</h5>
-                        <p><em>Experion, New York, NY </em></p>
+                        <h4>Web Developer</h4>
+                        <h5>Feb 2019 - Present</h5>
+                        <p><em><a target="_blank" href="https://www.xrite.com/">X-Rite</a>, Grand Rapids, MI </em></p>
                         <ul>
                             <li>Lead in the design, development, and implementation of the graphic, layout, and production communication materials</li>
                             <li>Delegate tasks to the 7 members of the design team and provide counsel on all aspects of the project. </li>
@@ -198,22 +201,44 @@
                         </ul>
                     </div>
                     <div class="resume-item">
-                        <h4>Graphic design specialist</h4>
-                        <h5>2017 - 2018</h5>
-                        <p><em>Stepping Stone Advertising, New York, NY</em></p>
+                        <h4>Software Engineer I</h4>
+                        <h5>Aug 2018 - Jan 2019</h5>
+                        <p><em><a target="_blank" href="https://www.thinkoccam.com/">Occam</a>, Hanover Park, IL</em></p>
                         <ul>
-                            <li>Developed numerous marketing programs (logos, brochures,infographics, presentations, and advertisements).</li>
-                            <li>Managed up to 5 projects or tasks at a given time while under pressure</li>
-                            <li>Recommended and consulted with clients on the most appropriate graphic design</li>
-                            <li>Created 4+ design presentations and proposals a month for clients and account managers</li>
+                            <li>I worked remotely as a full stack developer for custom software used to link patient information across systems and freeing systems of duplicate records. I worked on the QA, Integration, and Engineering teams.</li>
+                            <li>QA Analyst: Developed an app to generate random patient data for testing and automated API tests in Postman to speed up the QA process. I used C#, WPF, Postman and JavaScript.</li>
+                            <li>Integration: Analyzed the Occam software at clients and built integration interfaces for clients; I used Iguana, SQL, Visio and Excel.</li>
+                            <li>Engineering: Designed features and implemented an automated API Help page. I used C#, ASP.NET and HTML5.</li>
+                        </ul>
+                    </div>
+                    <div class="resume-item">
+                        <h4>Software Engineer Intern</h4>
+                        <h5>May 2017 - Aug 2017</h5>
+                        <p><em><a target="_blank" href="https://www.thinkoccam.com/">Occam</a>, Hanover Park, IL</em></p>
+                        <ul>
+                            <li>Full stack developer for custom software used to link patient information across systems and freeing systems of duplicate records.</li>
+                            <li>I used C#, ASP.NET, ASP.NET MVC, SQL, HTML5, CSS3, JS and jQuery to add new features in their ASP.NET app and convert old WPF apps to ASP.NET MVC apps.</li>
+                            <li>Handled sensitive patient data and followed HIPPA compliance to ensure it safety.</li>
+                        </ul>
+                    </div>
+                    <div class="resume-item">
+                        <h4>Software Engineer Intern</h4>
+                        <h5>May 2016 - Aug 2016</h5>
+                        <p><em><a target="_blank" href="https://www.pattersoncompanies.com/">Patterson Companies</a>, Effingham, IL</em></p>
+                        <ul>
+                            <li>Wrote test scripts for backend code as well as created features for the UI on the cloud-based web application, <a target="_blank" href="https://www.pattersondental.com/fuse">Fuse</a>.</li>
+                            <li>QA Analyst: Writing NUnit test scripts for backend server-side code using C# in Visual Studio.</li>
+                            <li>Web Developer: Creating features for the Azure cloud-based web application for their new dental software using JavaScript, HTML5, and CSS3, LESS in Visual Studio.</li>
+                            <li>General: The project was set up in an agile environment with two-week sprints. I ran a few of the daily meeting and worked closely with my team to complete work for the sprint.</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </section><!-- End Resume Section -->
+    </section>
+    <!-- End Resume Section -->
     <!-- ======= Portfolio Section ======= -->
-    <section id="portfolio" class="portfolio section-bg">
+    @*<section id="portfolio" class="portfolio section-bg">
         <div class="container">
             <div class="section-title">
                 <h2>Portfolio</h2>
@@ -314,9 +339,10 @@
                 </div>
             </div>
         </div>
-    </section><!-- End Portfolio Section -->
+    </section>*@
+    <!-- End Portfolio Section -->
     <!-- ======= Services Section ======= -->
-    <section id="services" class="services">
+    @*<section id="services" class="services">
         <div class="container">
             <div class="section-title">
                 <h2>Services</h2>
@@ -355,9 +381,10 @@
                 </div>
             </div>
         </div>
-    </section><!-- End Services Section -->
+    </section>*@
+    <!-- End Services Section -->
     <!-- ======= Testimonials Section ======= -->
-    <section id="testimonials" class="testimonials section-bg">
+    @*<section id="testimonials" class="testimonials section-bg">
         <div class="container">
             <div class="section-title">
                 <h2>Testimonials</h2>
@@ -416,9 +443,10 @@
                 </div>
             </div>
         </div>
-    </section><!-- End Testimonials Section -->
+    </section>*@
+    <!-- End Testimonials Section -->
     <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
+    @*<section id="contact" class="contact">
         <div class="container">
             <div class="section-title">
                 <h2>Contact</h2>
@@ -469,5 +497,6 @@
                 </div>
             </div>
         </div>
-    </section><!-- End Contact Section -->
+    </section>*@
+    <!-- End Contact Section -->
 </main><!-- End #main -->
