@@ -2,3 +2,46 @@
 for details on configuring this project to bundle and minify static web assets.
 
 Write your CSS code.*/
+.card-deck {
+    padding: 0 1rem 0 1rem;
+}
+
+#skills .card {
+    margin: 0 .5rem 0 .5rem;
+}
+
+#skills .card-container {
+    padding: 0 0 .5rem 0;
+}
+
+#skills .card-header {
+    padding-bottom: 0;
+}
+
+    #skills .card-header h2 {
+        font-size: 32px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        position: relative;
+    }
+
+        #skills .card-header h2::after {
+            content: '';
+            position: absolute;
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: #149ddd;
+            bottom: 0;
+            left: 0;
+        }
+
+#skills .card-body .skill {
+    min-width: 105px;
+    max-width: 125px;
+}
+
+#skills .card-body .image-container {
+    min-height: 92px;
+}
