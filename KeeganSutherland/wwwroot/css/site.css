@@ -41,3 +41,7 @@ Write your CSS code.*/
     min-width: 105px;
     max-width: 125px;
 }
+
+#skills .card-body .image-container {
+    min-height: 92px;
+}
