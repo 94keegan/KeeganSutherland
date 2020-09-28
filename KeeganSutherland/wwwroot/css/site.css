@@ -36,3 +36,8 @@ Write your CSS code.*/
             bottom: 0;
             left: 0;
         }
+
+#skills .card-body .skill {
+    min-width: 105px;
+    max-width: 125px;
+}
