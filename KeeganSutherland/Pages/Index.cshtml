@@ -3,12 +3,9 @@
 @{
     ViewData["Title"] = "Home";
 
-    DateTime dateOfBirth = new DateTime(1994, 8, 23);
     DateTime dateOfDevCasually = new DateTime(2013, 8, 19);
     DateTime dateOfDevProfessionally = new DateTime(2016, 5, 9);
 
-
-    int age = (int.Parse(DateTime.Now.ToString("yyyyMMdd")) - int.Parse(dateOfBirth.ToString("yyyyMMdd"))) / 10000;
     int devCasuallyYears = (int.Parse(DateTime.Now.ToString("yyyyMMdd")) - int.Parse(dateOfDevCasually.ToString("yyyyMMdd"))) / 10000;
     int devProfessionallyYears = (int.Parse(DateTime.Now.ToString("yyyyMMdd")) - int.Parse(dateOfDevProfessionally.ToString("yyyyMMdd"))) / 10000;
 }
@@ -38,23 +35,23 @@
                     <h3>Full Stack .Net Web Developer.</h3>
                     <p class="font-italic">
                         I love working in the .Net stack and learning all about the newest .Net technologies. I develop with frontend, backend, and database technologies to create a seamless experience for the user.
-                        I utilize AWS to keep hosting costs low and downtime minimal. I've developed websites, web applications, applications, and SOAP/REST APIs.
+                        I utilize AWS to keep hosting costs low and downtime minimal. I've developed websites, web applications, Windows applications, and APIs.
                     </p>
                     <div class="row">
-                        <div class="col-lg-6">
+                        @*<div class="col-lg-6">
                             <ul>
                                 <li><i class="icofont-rounded-right"></i> <strong>Birthday: </strong>@dateOfBirth.ToString("MMM dd, yyyy")</li>
                                 <li><i class="icofont-rounded-right"></i> <strong>Age: </strong>@age</li>
                                 <li><i class="icofont-rounded-right"></i> <strong>Website: </strong>keegansutherland.com</li>
                                 <li><i class="icofont-rounded-right"></i> <strong>City: </strong>Grand Rapids, MI</li>
                             </ul>
-                        </div>
+                        </div>*@
                         <div class="col-lg-6">
                             <ul>
                                 <li><i class="icofont-rounded-right"></i> <strong>Degree: </strong>Bachelor of Science</li>
                                 <li><i class="icofont-rounded-right"></i> <strong>Major: </strong>IS – Systems Development/Analyst</li>
                                 <li><i class="icofont-rounded-right"></i> <strong>Minor: </strong>Business Administration</li>
-                                <li><i class="icofont-rounded-right"></i> <strong>Freelance: </strong> Available</li>
+                                <li><i class="icofont-rounded-right"></i> <strong>City: </strong> Grand Rapids, MI</li>
                             </ul>
                         </div>
                     </div>
