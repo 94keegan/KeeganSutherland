@@ -1,0 +1,72 @@
+﻿@page
+@model Core.Pages.WorkoutModel
+@{
+    ViewData["Title"] = "Workout";
+    int setTime = (Model.Workout.SetDuration + Model.Workout.RestDuration) * Model.Workout.NumberOfSets;
+    string hours = $"{Math.Floor((decimal)(setTime % (60 * 60 * 24)) / (60 * 60))}h";
+    string minutes = $"{Math.Floor((decimal)(setTime % (60 * 60)) / 60)}m";
+    string seconds = $"{Math.Floor((decimal)(setTime % 60))}s";
+}
+
+<div class="text-center">
+    <h1 class="display-3 border-bottom">Core Workout</h1>
+    <div class="row">
+        <div class=" col-6">
+            <div class="row">
+                <div class="col-6">
+                    <h1 class="text-right">Overall Time: </h1>
+                </div>
+                <div class="col-6">
+                    <h1 id="OverallTime" class="text-left">@hours @minutes @seconds </h1>
+                </div>
+            </div>
+            @*<div class="row">
+                <div class="col-6">
+                    <h1 class="text-right">Set Time: </h1>
+                </div>
+                <div class="col-6">
+                    <h1 id="SetTime" class="text-left">@hours @minutes @seconds </h1>
+                </div>
+            </div>*@
+        </div>
+        <div class=" col-6">
+            <ol class="h2">
+                @foreach (var set in Model.SetList)
+                {
+                    <li class="text-left">@set</li>
+                }
+            </ol>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Set the date we're counting down to
+    var countDownDate = new Date();
+    // Find the distance between now and the count down date
+    var setTime = (@Model.Workout.SetDuration + @Model.Workout.RestDuration) * @Model.Workout.NumberOfSets;
+    countDownDate = countDownDate.setSeconds(countDownDate.getSeconds() + setTime);
+
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+        // Get today's date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for hours, minutes and seconds
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the result in the element with id="Timer"
+        $('#OverallTime').html(hours + "h " + minutes + "m " + seconds + "s ");
+
+        // If the count down is finished, write some text
+        if (distance < 0) {
+        clearInterval(x);
+            $('#OverallTime').html("Workout Over");
+        }
+}, 1000);
+</script>

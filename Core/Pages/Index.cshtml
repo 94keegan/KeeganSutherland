@@ -5,6 +5,26 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Create Your Workout</h1>
+    <form action="/workout" method="GET">
+        <div class="form-group row">
+            <label for="NumberOfSets" class="col-sm-2 col-form-label">Number of Sets</label>
+            <div class="col-sm-10">
+                <input type="number" id="NumberOfSets" name="NumberOfSets" class="form-control" value="8" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="SetDuration" class="col-sm-2 col-form-label">Set Duration</label>
+            <div class="col-sm-10">
+                <input type="number" id="SetDuration" name="SetDuration" class="form-control" value="60" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="RestDuratoin" class="col-sm-2 col-form-label">Rest Duration</label>
+            <div class="col-sm-10">
+                <input type="number" id="RestDuration" name="RestDuration" class="form-control" value="0" />
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Start Workout</button>
+    </form>
 </div>
