@@ -38,7 +38,8 @@ namespace Core.Pages
             {
                 if(SetList.Count + 1 != workout.NumberOfSets) // Prevents extra set when selecting coreSide
                 {
-                    generateRandomSet(coreCenter, (Workout.SetType)rnd.Next(1, 3), rnd);
+                    Workout.SetType setType = (Workout.SetType)rnd.Next(1, 3);
+                    generateRandomSet(setType == Workout.SetType.CoreCenter ? coreCenter : coreSide, setType, rnd);
                 }
                 else
                 {

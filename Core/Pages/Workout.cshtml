@@ -2,14 +2,25 @@
 @model Core.Pages.WorkoutModel
 @{
     ViewData["Title"] = "Workout";
-    int setTime = (Model.Workout.SetDuration + Model.Workout.RestDuration) * Model.Workout.NumberOfSets;
-    string hours = $"{Math.Floor((decimal)(setTime % (60 * 60 * 24)) / (60 * 60))}h";
-    string minutes = $"{Math.Floor((decimal)(setTime % (60 * 60)) / 60)}m";
-    string seconds = $"{Math.Floor((decimal)(setTime % 60))}s";
+    //int setTime = (Model.Workout.SetDuration + Model.Workout.RestDuration) * Model.Workout.NumberOfSets;
+    int setTime = Model.Workout.SetDuration * Model.Workout.NumberOfSets;
+    string totalHours = $"{Math.Floor((decimal)(setTime % (60 * 60 * 24)) / (60 * 60))}h";
+    string totalMinutes = $"{Math.Floor((decimal)(setTime % (60 * 60)) / 60)}m";
+    string totalSeconds = $"{Math.Floor((decimal)(setTime % 60))}s";
+
+    string setHours = $"{Math.Floor((decimal)(Model.Workout.SetDuration % (60 * 60 * 24)) / (60 * 60))}h";
+    string setMinutes = $"{Math.Floor((decimal)(Model.Workout.SetDuration % (60 * 60)) / 60)}m";
+    string setSeconds = $"{Math.Floor((decimal)(Model.Workout.SetDuration % 60))}s";
 }
 
 <div class="text-center">
-    <h1 class="display-3 border-bottom">Core Workout</h1>
+    <div class="border-bottom">
+        <h1 class="display-3">Core Workout</h1>
+        <button type="button" id="Start" class="btn btn-success btn-lg rounded-circle mb-2 mr-2"><i class="fa fa-play"></i></button>
+        <button type="button" id="Pause" class="btn btn-primary btn-lg rounded-circle mb-2 d-none mr-2"><i class="fa fa-pause"></i></button>
+        <button type="button" id="Restart" class="btn btn-warning btn-lg rounded-circle mb-2 d-none ml-2"><i class="fa fa-undo"></i></button>
+    </div>
+
     <div class="row">
         <div class=" col-6">
             <div class="row">
@@ -17,17 +28,17 @@
                     <h1 class="text-right">Overall Time: </h1>
                 </div>
                 <div class="col-6">
-                    <h1 id="OverallTime" class="text-left">@hours @minutes @seconds </h1>
+                    <h1 id="OverallTimer" class="text-left">@totalHours @totalMinutes @totalSeconds</h1>
                 </div>
             </div>
-            @*<div class="row">
+            <div class="row">
                 <div class="col-6">
                     <h1 class="text-right">Set Time: </h1>
                 </div>
                 <div class="col-6">
-                    <h1 id="SetTime" class="text-left">@hours @minutes @seconds </h1>
+                    <h1 id="SetTimer" class="text-left">@setHours @setMinutes @setSeconds</h1>
                 </div>
-            </div>*@
+            </div>
         </div>
         <div class=" col-6">
             <ol class="h2">
@@ -39,34 +50,86 @@
         </div>
     </div>
 </div>
-
+<script src="lib/easytimer/dist/easytimer.min.js"></script>
 <script>
-    // Set the date we're counting down to
-    var countDownDate = new Date();
-    // Find the distance between now and the count down date
-    var setTime = (@Model.Workout.SetDuration + @Model.Workout.RestDuration) * @Model.Workout.NumberOfSets;
-    countDownDate = countDownDate.setSeconds(countDownDate.getSeconds() + setTime);
+    $(document).ready(function () {
+        $('#Start').on('click', function () {
+            $('#Start').addClass('d-none');
+            $('#Pause').removeClass('d-none');
+            $('#Restart').removeClass('d-none');
+            overallTimer.start();
+            setTimer.start();
+        });
 
-    // Update the count down every 1 second
-    var x = setInterval(function() {
-        // Get today's date and time
-        var now = new Date().getTime();
+        $('#Pause').on('click', function () {
+            $('#Start').removeClass('d-none');
+            $('#Pause').addClass('d-none');
+            overallTimer.pause();
+            setTimer.pause();
+        });
 
-        // Find the distance between now and the count down date
-        var distance = countDownDate - now;
+        $('#Restart').on('click', function () {
+            $('#Start').removeClass('d-none');
+            $('#Pause').addClass('d-none');
+            $('#Restart').addClass('d-none');
+            overallTimer.reset();
+            setTimer.reset();
+            overallTimer.pause();
+            setTimer.pause();
+        });
+    });
 
-        // Time calculations for hours, minutes and seconds
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    var setDuration = @Model.Workout.SetDuration;
+    var restDuration = @Model.Workout.RestDuration;
+    var numberOfSets = @Model.Workout.NumberOfSets;
+    var setCounter = numberOfSets;
+    //var totalTime = (setDuration + restDuration) * numberOfSets;
+    var totalTime = setDuration * numberOfSets;
+    var overallTimer = new easytimer.Timer();
+    var setTimer = new easytimer.Timer();
 
-        // Display the result in the element with id="Timer"
-        $('#OverallTime').html(hours + "h " + minutes + "m " + seconds + "s ");
+    overallTimer.start({ countdown: true, startValues: { seconds: totalTime }, target: { seconds: 0 } });
+    overallTimer.pause();
 
-        // If the count down is finished, write some text
-        if (distance < 0) {
-        clearInterval(x);
-            $('#OverallTime').html("Workout Over");
+    setTimer.start({ countdown: true, startValues: { seconds: setDuration }, target: { seconds: 0 } });
+    setTimer.pause();
+
+    overallTimer.addEventListener('secondsUpdated', function (e) {
+        displayTimers(overallTimer, '#OverallTimer');
+    });
+
+    overallTimer.addEventListener('started', function (e) {
+        displayTimers(overallTimer, '#OverallTimer');
+    });
+
+    overallTimer.addEventListener('reset', function (e) {
+        displayTimers(overallTimer, '#OverallTimer');
+        setCounter = numberOfSets
+    });
+
+    setTimer.addEventListener('secondsUpdated', function (e) {
+        displayTimers(setTimer, '#SetTimer');
+    });
+
+    setTimer.addEventListener('started', function (e) {
+        displayTimers(setTimer, '#SetTimer');
+    });
+
+    setTimer.addEventListener('reset', function (e) {
+        displayTimers(setTimer, '#SetTimer');
+    });
+
+    setTimer.addEventListener('targetAchieved', function (e) {
+        setCounter--;
+        if (setCounter > 0) {
+            setTimer.reset();
         }
-}, 1000);
+    });
+
+    function displayTimers(timer, timerDisplay) {
+        var hours = timer.getTimeValues().hours + 'h ';
+        var minutes = timer.getTimeValues().minutes + 'm ';
+        var seconds = timer.getTimeValues().seconds + 's';
+        $(timerDisplay).html(hours + minutes + seconds);
+    }
 </script>
