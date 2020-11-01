@@ -2,8 +2,7 @@
 @model Core.Pages.WorkoutModel
 @{
     ViewData["Title"] = "Workout";
-    //int setTime = (Model.Workout.SetDuration + Model.Workout.RestDuration) * Model.Workout.NumberOfSets;
-    int setTime = Model.Workout.SetDuration * Model.Workout.NumberOfSets;
+    int setTime = (Model.Workout.SetDuration * Model.Workout.NumberOfSets) + (Model.Workout.RestDuration * (Model.Workout.NumberOfSets - 1));
     string totalHours = $"{Math.Floor((decimal)(setTime % (60 * 60 * 24)) / (60 * 60))}h";
     string totalMinutes = $"{Math.Floor((decimal)(setTime % (60 * 60)) / 60)}m";
     string totalSeconds = $"{Math.Floor((decimal)(setTime % 60))}s";
@@ -25,7 +24,7 @@
         <div class=" col-6">
             <div class="row">
                 <div class="col-6">
-                    <h1 class="text-right">Overall Time: </h1>
+                    <h1 id="OverallTimeText" class="text-right">Overall Time:</h1>
                 </div>
                 <div class="col-6">
                     <h1 id="OverallTimer" class="text-left">@totalHours @totalMinutes @totalSeconds</h1>
@@ -33,7 +32,7 @@
             </div>
             <div class="row">
                 <div class="col-6">
-                    <h1 class="text-right">Set Time: </h1>
+                    <h1 id="SetTimeText" class="text-right">Set Time:</h1>
                 </div>
                 <div class="col-6">
                     <h1 id="SetTimer" class="text-left">@setHours @setMinutes @setSeconds</h1>
@@ -83,16 +82,19 @@
     var restDuration = @Model.Workout.RestDuration;
     var numberOfSets = @Model.Workout.NumberOfSets;
     var setCounter = numberOfSets;
-    //var totalTime = (setDuration + restDuration) * numberOfSets;
-    var totalTime = setDuration * numberOfSets;
+    var totalTime = (setDuration * numberOfSets) + (restDuration * (numberOfSets - 1));
     var overallTimer = new easytimer.Timer();
     var setTimer = new easytimer.Timer();
+    var restTimer = new easytimer.Timer();
 
     overallTimer.start({ countdown: true, startValues: { seconds: totalTime }, target: { seconds: 0 } });
     overallTimer.pause();
 
     setTimer.start({ countdown: true, startValues: { seconds: setDuration }, target: { seconds: 0 } });
     setTimer.pause();
+
+    restTimer.start({ countdown: true, startValues: { seconds: restDuration }, target: { seconds: 0 } });
+    restTimer.pause();
 
     overallTimer.addEventListener('secondsUpdated', function (e) {
         displayTimers(overallTimer, '#OverallTimer');
@@ -121,8 +123,31 @@
 
     setTimer.addEventListener('targetAchieved', function (e) {
         setCounter--;
+
         if (setCounter > 0) {
-            setTimer.reset();
+            setTimer.stop();
+            restTimer.start({ countdown: true, startValues: { seconds: restDuration }, target: { seconds: 0 } });
+            $('#SetTimeText').html('Rest Time:')
+        }
+    });
+
+    restTimer.addEventListener('secondsUpdated', function (e) {
+        displayTimers(restTimer, '#SetTimer');
+    });
+
+    restTimer.addEventListener('started', function (e) {
+        displayTimers(restTimer, '#SetTimer');
+    });
+
+    restTimer.addEventListener('reset', function (e) {
+        displayTimers(restTimer, '#SetTimer');
+    });
+
+    restTimer.addEventListener('targetAchieved', function (e) {
+        if (setCounter > 0) {
+            restTimer.stop();
+            setTimer.start({ countdown: true, startValues: { seconds: setDuration }, target: { seconds: 0 } });
+            $('#SetTimeText').html('Set Time:')
         }
     });
 
