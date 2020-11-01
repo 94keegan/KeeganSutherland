@@ -126,8 +126,12 @@
 
         if (setCounter > 0) {
             setTimer.stop();
-            restTimer.start({ countdown: true, startValues: { seconds: restDuration }, target: { seconds: 0 } });
-            $('#SetTimeText').html('Rest Time:')
+            if (restDuration > 0) {
+                restTimer.start({ countdown: true, startValues: { seconds: restDuration }, target: { seconds: 0 } });
+                $('#SetTimeText').html('Rest Time:')
+            } else {
+                setTimer.start({ countdown: true, startValues: { seconds: setDuration }, target: { seconds: 0 } });
+            }
         }
     });
 
