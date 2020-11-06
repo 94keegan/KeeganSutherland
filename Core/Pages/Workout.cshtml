@@ -86,6 +86,7 @@
     var overallTimer = new easytimer.Timer();
     var setTimer = new easytimer.Timer();
     var restTimer = new easytimer.Timer();
+    var countdownSound = new Audio('https://www.fesliyanstudios.com/play-mp3/7032');
 
     overallTimer.start({ countdown: true, startValues: { seconds: totalTime }, target: { seconds: 0 } });
     overallTimer.pause();
@@ -111,6 +112,7 @@
 
     setTimer.addEventListener('secondsUpdated', function (e) {
         displayTimers(setTimer, '#SetTimer');
+        playCountdownAudio(setTimer);
     });
 
     setTimer.addEventListener('started', function (e) {
@@ -137,6 +139,7 @@
 
     restTimer.addEventListener('secondsUpdated', function (e) {
         displayTimers(restTimer, '#SetTimer');
+        playCountdownAudio(restTimer);
     });
 
     restTimer.addEventListener('started', function (e) {
@@ -160,5 +163,25 @@
         var minutes = timer.getTimeValues().minutes + 'm ';
         var seconds = timer.getTimeValues().seconds + 's';
         $(timerDisplay).html(hours + minutes + seconds);
+    }
+
+    function playCountdownAudio(timer) {
+        // Countdown sound for last 3 seconds
+        if (timer.getTimeValues().seconds <= 3 && timer.getTimeValues().seconds > 0) {
+            countdownSound.playbackRate = 1;
+            countdownSound.play();
+            setTimeout(function () {
+                countdownSound.pause();
+                countdownSound.currentTime = 0;
+            }, 500);
+        }
+        else if (timer.getTimeValues().seconds === 0) {
+            countdownSound.playbackRate = .5;
+            countdownSound.play();
+            setTimeout(function () {
+                countdownSound.pause();
+                countdownSound.currentTime = 0;
+            }, 500);
+        }
     }
 </script>
