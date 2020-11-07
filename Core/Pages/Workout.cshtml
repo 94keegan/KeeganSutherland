@@ -64,12 +64,20 @@
     var totalTimer = new easytimer.Timer();
     var setTimer = new easytimer.Timer();
     var restTimer = new easytimer.Timer();
-    var countdownSound = new Audio('https://www.fesliyanstudios.com/play-mp3/7032');
+    var countdownSound = new Audio();
+    var countdownAudioLink = "https://www.fesliyanstudios.com/play-mp3/7032"
     var audioEnabled = false;
 
     $(document).ready(function (){
         $('#chkEnableAudio').on('click', function () {
-            audioEnabled = $(this).is(':checked') ? true : false;
+            countdownSound.src = "";
+            if ($(this).is(':checked')) {
+                audioEnabled = true;
+                countdownSound.play();
+                countdownSound.src = countdownAudioLink;
+            } else {
+                audioEnabled = false;
+            }
         });
     });
 
