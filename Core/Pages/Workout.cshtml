@@ -21,13 +21,13 @@
     </div>
 
     <div class="row">
-        <div class=" col-6">
+        <div class="col-sm-6">
             <div class="row">
                 <div class="col-6">
-                    <h1 id="OverallTimeText" class="text-right">Overall Time:</h1>
+                    <h1 id="TotalTimeText" class="text-right">Total Time:</h1>
                 </div>
                 <div class="col-6">
-                    <h1 id="OverallTimer" class="text-left">@totalHours @totalMinutes @totalSeconds</h1>
+                    <h1 id="TotalTimer" class="text-left">@totalHours @totalMinutes @totalSeconds</h1>
                 </div>
             </div>
             <div class="row">
@@ -39,7 +39,7 @@
                 </div>
             </div>
         </div>
-        <div class=" col-6">
+        <div class="col-sm-6">
             <ol class="h2">
                 @foreach (var set in Model.SetList)
                 {
@@ -57,7 +57,7 @@
     var numberOfSets = @Model.Workout.NumberOfSets;
     var setCounter = numberOfSets;
     var totalTime = (setDuration * numberOfSets) + (restDuration * (numberOfSets - 1));
-    var overallTimer = new easytimer.Timer();
+    var totalTimer = new easytimer.Timer();
     var setTimer = new easytimer.Timer();
     var restTimer = new easytimer.Timer();
     var countdownSound = new Audio('https://www.fesliyanstudios.com/play-mp3/7032');
@@ -67,7 +67,7 @@
         $('#Pause').removeClass('d-none');
         $('#Restart').removeClass('d-none');
 
-        overallTimer.start();
+        totalTimer.start();
         isRestTime ? restTimer.start() : setTimer.start();
     });
 
@@ -75,7 +75,7 @@
         $('#Start').removeClass('d-none');
         $('#Pause').addClass('d-none');
 
-        overallTimer.pause();
+        totalTimer.pause();
         setTimer.pause();
         restTimer.pause();
     });
@@ -85,8 +85,8 @@
         $('#Pause').addClass('d-none');
         $('#Restart').addClass('d-none');
 
-        overallTimer.reset();
-        overallTimer.pause();
+        totalTimer.reset();
+        totalTimer.pause();
         setTimer.reset();
         setTimer.pause();
         restTimer.reset();
@@ -97,8 +97,8 @@
         isRestTime = false;
     });
 
-    overallTimer.start({ countdown: true, startValues: { seconds: totalTime }, target: { seconds: 0 } });
-    overallTimer.pause();
+    totalTimer.start({ countdown: true, startValues: { seconds: totalTime }, target: { seconds: 0 } });
+    totalTimer.pause();
 
     setTimer.start({ countdown: true, startValues: { seconds: setDuration }, target: { seconds: 0 } });
     setTimer.pause();
@@ -106,16 +106,16 @@
     restTimer.start({ countdown: true, startValues: { seconds: restDuration }, target: { seconds: 0 } });
     restTimer.pause();
 
-    overallTimer.addEventListener('secondsUpdated', function (e) {
-        displayTimers(overallTimer, '#OverallTimer');
+    totalTimer.addEventListener('secondsUpdated', function (e) {
+        displayTimers(totalTimer, '#TotalTimer');
     });
 
-    overallTimer.addEventListener('started', function (e) {
-        displayTimers(overallTimer, '#OverallTimer');
+    totalTimer.addEventListener('started', function (e) {
+        displayTimers(totalTimer, '#TotalTimer');
     });
 
-    overallTimer.addEventListener('reset', function (e) {
-        displayTimers(overallTimer, '#OverallTimer');
+    totalTimer.addEventListener('reset', function (e) {
+        displayTimers(totalTimer, '#TotalTimer');
         setCounter = numberOfSets
     });
 
