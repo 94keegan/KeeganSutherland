@@ -18,6 +18,10 @@
         <button type="button" id="Start" class="btn btn-success btn-lg rounded-circle mb-2 mr-2"><i class="fa fa-play"></i></button>
         <button type="button" id="Pause" class="btn btn-primary btn-lg rounded-circle mb-2 d-none mr-2"><i class="fa fa-pause"></i></button>
         <button type="button" id="Restart" class="btn btn-warning btn-lg rounded-circle mb-2 d-none ml-2"><i class="fa fa-undo"></i></button>
+        <div class="custom-control custom-switch d-inline-flex float-right">
+            <input type="checkbox" id="chkEnableAudio" class="custom-control-input" />
+            <label class="custom-control-label" for="chkEnableAudio">Enable Audio</label>
+        </div>
     </div>
 
     <div class="row">
@@ -61,6 +65,13 @@
     var setTimer = new easytimer.Timer();
     var restTimer = new easytimer.Timer();
     var countdownSound = new Audio('https://www.fesliyanstudios.com/play-mp3/7032');
+    var audioEnabled = false;
+
+    $(document).ready(function (){
+        $('#chkEnableAudio').on('click', function () {
+            audioEnabled = $(this).is(':checked') ? true : false;
+        });
+    });
 
     $('#Start').on('click', function () {
         $('#Start').addClass('d-none');
@@ -145,6 +156,8 @@
                 setTimer.reset();
                 isRestTime = false;
             }
+        } else if (setCounter = 0) {
+
         }
     });
 
@@ -177,22 +190,24 @@
     }
 
     function playCountdownAudio(timer) {
-        // Countdown sound for last 3 seconds
-        if (timer.getTimeValues().seconds <= 3 && timer.getTimeValues().seconds > 0) {
-            countdownSound.playbackRate = 1;
-            countdownSound.play();
-            setTimeout(function () {
-                countdownSound.pause();
-                countdownSound.currentTime = 0;
-            }, 500);
-        }
-        else if (timer.getTimeValues().seconds === 0) {
-            countdownSound.playbackRate = .5;
-            countdownSound.play();
-            setTimeout(function () {
-                countdownSound.pause();
-                countdownSound.currentTime = 0;
-            }, 500);
+        if (audioEnabled) {
+            // Countdown sound for last 3 seconds
+            if (timer.getTimeValues().seconds <= 3 && timer.getTimeValues().seconds > 0) {
+                countdownSound.playbackRate = 1;
+                countdownSound.play();
+                setTimeout(function () {
+                    countdownSound.pause();
+                    countdownSound.currentTime = 0;
+                }, 500);
+            }
+            else if (timer.getTimeValues().seconds === 0) {
+                countdownSound.playbackRate = .5;
+                countdownSound.play();
+                setTimeout(function () {
+                    countdownSound.pause();
+                    countdownSound.currentTime = 0;
+                }, 500);
+            }
         }
     }
 </script>
