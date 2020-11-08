@@ -15,12 +15,11 @@
 <div class="text-center">
     <div class="border-bottom">
         <h1 class="display-3">Core Workout</h1>
-        <button type="button" id="Start" class="btn btn-success btn-lg rounded-circle mb-2 mr-2"><i class="fa fa-play"></i></button>
-        <button type="button" id="Pause" class="btn btn-primary btn-lg rounded-circle mb-2 d-none mr-2"><i class="fa fa-pause"></i></button>
-        <button type="button" id="Restart" class="btn btn-warning btn-lg rounded-circle mb-2 d-none ml-2"><i class="fa fa-undo"></i></button>
-        <div class="custom-control custom-switch d-inline-flex float-right">
-            <input type="checkbox" id="chkEnableAudio" class="custom-control-input" />
-            <label class="custom-control-label" for="chkEnableAudio">Enable Audio</label>
+        <button type="button" id="btnStart" class="btn btn-success btn-lg rounded-circle mb-2 mr-2"><i class="fa fa-play"></i></button>
+        <button type="button" id="btnPause" class="btn btn-primary btn-lg rounded-circle mb-2 d-none mr-2"><i class="fa fa-pause"></i></button>
+        <button type="button" id="btnRestart" class="btn btn-warning btn-lg rounded-circle mb-2 d-none ml-2"><i class="fa fa-undo"></i></button>
+        <div class="d-inline-flex float-right">
+            <button type="button" id="btnEnableAudio" class="btn btn-lg rounded-circle shadow-none" data-toggle="tooltip" data-placement="left" title="Toggle Audio"><i class="fa fa-volume-mute"></i></button>
         </div>
     </div>
 
@@ -69,11 +68,11 @@
     var audioEnabled = false;
 
     $(document).ready(function (){
-        $('#chkEnableAudio').on('click', function () {
+        $('#btnEnableAudio').on('click', function () {
+            $(this).find('i').toggleClass('fa-volume-up fa-volume-mute')
             countdownSound.src = "";
-            if ($(this).is(':checked')) {
+            if ($(this).find('i').hasClass('fa-volume-up')) {
                 audioEnabled = true;
-                countdownSound.play();
                 countdownSound.src = countdownAudioLink;
             } else {
                 audioEnabled = false;
@@ -81,28 +80,28 @@
         });
     });
 
-    $('#Start').on('click', function () {
-        $('#Start').addClass('d-none');
-        $('#Pause').removeClass('d-none');
-        $('#Restart').removeClass('d-none');
+    $('#btnStart').on('click', function () {
+        $('#btnStart').addClass('d-none');
+        $('#btnPause').removeClass('d-none');
+        $('#btnRestart').removeClass('d-none');
 
         totalTimer.start();
         isRestTime ? restTimer.start() : setTimer.start();
     });
 
-    $('#Pause').on('click', function () {
-        $('#Start').removeClass('d-none');
-        $('#Pause').addClass('d-none');
+    $('#btnPause').on('click', function () {
+        $('#btnStart').removeClass('d-none');
+        $('#btnPause').addClass('d-none');
 
         totalTimer.pause();
         setTimer.pause();
         restTimer.pause();
     });
 
-    $('#Restart').on('click', function () {
-        $('#Start').removeClass('d-none');
-        $('#Pause').addClass('d-none');
-        $('#Restart').addClass('d-none');
+    $('#btnRestart').on('click', function () {
+        $('#btnStart').removeClass('d-none');
+        $('#btnPause').addClass('d-none');
+        $('#btnRestart').addClass('d-none');
 
         totalTimer.reset();
         totalTimer.pause();
