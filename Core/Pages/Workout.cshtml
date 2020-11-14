@@ -154,8 +154,8 @@
         setCounter--;
 
         if (setCounter > 0) {
-            setTimer.stop();
             if (restDuration > 0) {
+                setTimer.stop();
                 restTimer.reset();
                 $('#SetTimeText').html('Rest Time:');
                 isRestTime = true;
