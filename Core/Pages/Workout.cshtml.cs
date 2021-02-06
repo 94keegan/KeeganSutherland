@@ -22,6 +22,7 @@ namespace Core.Pages
         public List<string> SetList = new List<string>();
         public Workout Workout = new Workout();
 
+
         public void OnGet([FromQuery] Workout workout)
         {
             Workout = workout;
@@ -30,6 +31,7 @@ namespace Core.Pages
 
         private void GenerateWorkout(Workout workout)
         {
+            workout.SetTimeText = $"{Math.Floor((decimal)(Workout.SetDuration % (60 * 60)) / 60)}m {Math.Floor((decimal)(Workout.SetDuration % 60))}s";
             List<string> coreCenter = GetSets("CoreCenter");
             List<string> coreSide = GetSets("CoreSide");
             Random rnd = new Random();

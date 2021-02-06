@@ -2,14 +2,6 @@
 @model Core.Pages.WorkoutModel
 @{
     ViewData["Title"] = "Workout";
-    int setTime = (Model.Workout.SetDuration * Model.Workout.NumberOfSets) + (Model.Workout.RestDuration * (Model.Workout.NumberOfSets - 1));
-    string totalHours = $"{Math.Floor((decimal)(setTime % (60 * 60 * 24)) / (60 * 60))}h";
-    string totalMinutes = $"{Math.Floor((decimal)(setTime % (60 * 60)) / 60)}m";
-    string totalSeconds = $"{Math.Floor((decimal)(setTime % 60))}s";
-
-    string setHours = $"{Math.Floor((decimal)(Model.Workout.SetDuration % (60 * 60 * 24)) / (60 * 60))}h";
-    string setMinutes = $"{Math.Floor((decimal)(Model.Workout.SetDuration % (60 * 60)) / 60)}m";
-    string setSeconds = $"{Math.Floor((decimal)(Model.Workout.SetDuration % 60))}s";
 }
 
 <div class="text-center">
@@ -22,23 +14,22 @@
             <button type="button" id="btnEnableAudio" class="btn btn-lg rounded-circle shadow-none" data-toggle="tooltip" data-placement="left" title="Toggle Audio"><i class="fa fa-volume-mute"></i></button>
         </div>
     </div>
-
     <div class="row">
         <div class="col-sm-6">
-            <div class="row">
-                <div class="col-6">
-                    <h1 id="TotalTimeText" class="text-right">Total Time:</h1>
-                </div>
-                <div class="col-6">
-                    <h1 id="TotalTimer" class="text-left">@totalHours @totalMinutes @totalSeconds</h1>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-6">
                     <h1 id="SetTimeText" class="text-right">Set Time:</h1>
                 </div>
                 <div class="col-6">
-                    <h1 id="SetTimer" class="text-left">@setHours @setMinutes @setSeconds</h1>
+                    <h1 id="SetTimer" class="text-left">@Model.Workout.SetTimeText</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <h1 id="SetText" class="text-right">Set:</h1>
+                </div>
+                <div class="col-6">
+                    <h1 id="Set" class="text-left">@Model.Workout.NumberOfSets</h1>
                 </div>
             </div>
         </div>
@@ -59,8 +50,6 @@
     var restDuration = @Model.Workout.RestDuration;
     var numberOfSets = @Model.Workout.NumberOfSets;
     var setCounter = numberOfSets;
-    var totalTime = (setDuration * numberOfSets) + (restDuration * (numberOfSets - 1));
-    var totalTimer = new easytimer.Timer();
     var setTimer = new easytimer.Timer();
     var restTimer = new easytimer.Timer();
     var countdownSound = new Audio();
@@ -85,7 +74,6 @@
         $('#btnPause').removeClass('d-none');
         $('#btnRestart').removeClass('d-none');
 
-        totalTimer.start();
         isRestTime ? restTimer.start() : setTimer.start();
     });
 
@@ -93,7 +81,6 @@
         $('#btnStart').removeClass('d-none');
         $('#btnPause').addClass('d-none');
 
-        totalTimer.pause();
         setTimer.pause();
         restTimer.pause();
     });
@@ -103,39 +90,23 @@
         $('#btnPause').addClass('d-none');
         $('#btnRestart').addClass('d-none');
 
-        totalTimer.reset();
-        totalTimer.pause();
         setTimer.reset();
         setTimer.pause();
         restTimer.reset();
         restTimer.pause();
+        setCounter = @Model.Workout.NumberOfSets;
 
         displayTimers(setTimer, '#SetTimer');
         $('#SetTimeText').html('Set Time:')
+        $('#Set').html(setCounter);
         isRestTime = false;
     });
-
-    totalTimer.start({ countdown: true, startValues: { seconds: totalTime }, target: { seconds: 0 } });
-    totalTimer.pause();
 
     setTimer.start({ countdown: true, startValues: { seconds: setDuration }, target: { seconds: 0 } });
     setTimer.pause();
 
     restTimer.start({ countdown: true, startValues: { seconds: restDuration }, target: { seconds: 0 } });
     restTimer.pause();
-
-    totalTimer.addEventListener('secondsUpdated', function (e) {
-        displayTimers(totalTimer, '#TotalTimer');
-    });
-
-    totalTimer.addEventListener('started', function (e) {
-        displayTimers(totalTimer, '#TotalTimer');
-    });
-
-    totalTimer.addEventListener('reset', function (e) {
-        displayTimers(totalTimer, '#TotalTimer');
-        setCounter = numberOfSets
-    });
 
     setTimer.addEventListener('secondsUpdated', function (e) {
         displayTimers(setTimer, '#SetTimer');
@@ -151,7 +122,7 @@
     });
 
     setTimer.addEventListener('targetAchieved', function (e) {
-        setCounter--;
+        $('#Set').html(--setCounter);
 
         if (setCounter > 0) {
             if (restDuration > 0) {
@@ -163,8 +134,6 @@
                 setTimer.reset();
                 isRestTime = false;
             }
-        } else if (setCounter = 0) {
-
         }
     });
 
@@ -190,10 +159,9 @@
     });
 
     function displayTimers(timer, timerDisplay) {
-        var hours = timer.getTimeValues().hours + 'h ';
         var minutes = timer.getTimeValues().minutes + 'm ';
         var seconds = timer.getTimeValues().seconds + 's';
-        $(timerDisplay).html(hours + minutes + seconds);
+        $(timerDisplay).html(minutes + seconds);
     }
 
     function playCountdownAudio(timer) {
