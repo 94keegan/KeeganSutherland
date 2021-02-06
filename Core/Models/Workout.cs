@@ -11,6 +11,8 @@ namespace Core.Models
         [FromQuery(Name = "RestDuration")]
         public int RestDuration { get; set; } = 0;
 
+        public string SetTimeText { get; set; }
+
         public enum SetType
         {
             CoreSide = 1,

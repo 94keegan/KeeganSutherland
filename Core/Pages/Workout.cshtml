@@ -2,10 +2,6 @@
 @model Core.Pages.WorkoutModel
 @{
     ViewData["Title"] = "Workout";
-
-    string setHours = $"{Math.Floor((decimal)(Model.Workout.SetDuration % (60 * 60 * 24)) / (60 * 60))}h";
-    string setMinutes = $"{Math.Floor((decimal)(Model.Workout.SetDuration % (60 * 60)) / 60)}m";
-    string setSeconds = $"{Math.Floor((decimal)(Model.Workout.SetDuration % 60))}s";
 }
 
 <div class="text-center">
@@ -25,7 +21,7 @@
                     <h1 id="SetTimeText" class="text-right">Set Time:</h1>
                 </div>
                 <div class="col-6">
-                    <h1 id="SetTimer" class="text-left">@setHours @setMinutes @setSeconds</h1>
+                    <h1 id="SetTimer" class="text-left">@Model.Workout.SetTimeText</h1>
                 </div>
             </div>
             <div class="row">
@@ -163,10 +159,9 @@
     });
 
     function displayTimers(timer, timerDisplay) {
-        var hours = timer.getTimeValues().hours + 'h ';
         var minutes = timer.getTimeValues().minutes + 'm ';
         var seconds = timer.getTimeValues().seconds + 's';
-        $(timerDisplay).html(hours + minutes + seconds);
+        $(timerDisplay).html(minutes + seconds);
     }
 
     function playCountdownAudio(timer) {
