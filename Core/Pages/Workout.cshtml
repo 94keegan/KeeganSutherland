@@ -122,9 +122,8 @@
     });
 
     setTimer.addEventListener('targetAchieved', function (e) {
-        $('#Set').html(++setCounter);
-
-        if (setCounter < @Model.Workout.NumberOfSets) {
+        if (++setCounter <= @Model.Workout.NumberOfSets) {
+            $('#Set').html(setCounter);
             if (restDuration > 0) {
                 setTimer.stop();
                 restTimer.reset();
@@ -151,7 +150,7 @@
     });
 
     restTimer.addEventListener('targetAchieved', function (e) {
-        if (setCounter < @Model.Workout.NumberOfSets) {
+        if (setCounter <= @Model.Workout.NumberOfSets) {
             setTimer.reset();
             $('#SetTimeText').html('Set Time:');
             isRestTime = false;
