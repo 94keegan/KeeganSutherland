@@ -26,10 +26,10 @@
             </div>
             <div class="row">
                 <div class="col-6">
-                    <h1 id="SetText" class="text-right">Set:</h1>
+                    <h1 id="SetText" class="text-right">Set #:</h1>
                 </div>
                 <div class="col-6">
-                    <h1 id="Set" class="text-left">@Model.Workout.NumberOfSets</h1>
+                    <h1 id="Set" class="text-left">1</h1>
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
     var setDuration = @Model.Workout.SetDuration;
     var restDuration = @Model.Workout.RestDuration;
     var numberOfSets = @Model.Workout.NumberOfSets;
-    var setCounter = numberOfSets;
+    var setCounter = 1;
     var setTimer = new easytimer.Timer();
     var restTimer = new easytimer.Timer();
     var countdownSound = new Audio();
@@ -94,7 +94,7 @@
         setTimer.pause();
         restTimer.reset();
         restTimer.pause();
-        setCounter = @Model.Workout.NumberOfSets;
+        setCounter = 1;
 
         displayTimers(setTimer, '#SetTimer');
         $('#SetTimeText').html('Set Time:')
@@ -122,9 +122,8 @@
     });
 
     setTimer.addEventListener('targetAchieved', function (e) {
-        $('#Set').html(--setCounter);
-
-        if (setCounter > 0) {
+        if (++setCounter <= @Model.Workout.NumberOfSets) {
+            $('#Set').html(setCounter);
             if (restDuration > 0) {
                 setTimer.stop();
                 restTimer.reset();
@@ -151,7 +150,7 @@
     });
 
     restTimer.addEventListener('targetAchieved', function (e) {
-        if (setCounter > 0) {
+        if (setCounter <= @Model.Workout.NumberOfSets) {
             setTimer.reset();
             $('#SetTimeText').html('Set Time:');
             isRestTime = false;
